@@ -11,6 +11,12 @@ Improved decoding for stable diffusion vaes.
 ```
 $ pip install git+https://github.com/openai/consistencydecoder.git
 ```
+or
+```
+$ git clone https://github.com/openai/consistencydecoder
+$ cd consistencydecoder
+$ python setup.py install
+```
 
 ## Usage
 
