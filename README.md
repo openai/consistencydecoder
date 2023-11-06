@@ -32,7 +32,7 @@ pipe = StableDiffusionPipeline.from_pretrained(
 pipe.vae.cuda()
 decoder_consistency = ConsistencyDecoder(device="cuda:0") # Model size: 2.49 GB
 
-image = load_image("assets/gt1.png", size=(256, 256), center_crop=True)
+image = load_image("assets/gt1.png", size=(256, 256), center_crop=True) # alternatively, one can provide image url
 latent = pipe.vae.encode(image.half().cuda()).latent_dist.mean
 
 # decode with gan
