@@ -35,18 +35,18 @@ decoder_consistency = ConsistencyDecoder(device="cuda:0") # Model size: 2.49 GB
 image = load_image("assets/gt1.png", size=(256, 256), center_crop=True) # alternatively, one can provide image url
 latent = pipe.vae.encode(image.half().cuda()).latent_dist.mean
 
-# decode with gan
-sample_gan = pipe.vae.decode(latent).sample.detach()
-save_image(sample_gan, "gan.png")
+# decode with VAE
+sample_vae = pipe.vae.decode(latent).sample.detach()
+save_image(sample_vae, "vae.png")
 
 # decode with vae
 sample_consistency = decoder_consistency(latent)
-save_image(sample_consistency, "con.png")
+save_image(sample_consistency, "consistency.png")
 ```
 
 ## Examples
- Original Image | GAN Decoder | Consistency Decoder |
+ Original Image | VAE Decoder | Consistency Decoder |
 :---:|:---:|:---:|
-![Original Image](assets/gt1.png) | ![GAN Image](assets/gan1.png) | ![VAE Image](assets/con1.png) |
-![Original Image](assets/gt2.png) | ![GAN Image](assets/gan2.png) | ![VAE Image](assets/con2.png) |
-![Original Image](assets/gt3.png) | ![GAN Image](assets/gan3.png) | ![VAE Image](assets/con3.png) |
+![Original Image](assets/gt1.png) | ![VAE Image](assets/vae1.png) | ![Consistency Image](assets/consistency1.png) |
+![Original Image](assets/gt2.png) | ![VAE Image](assets/vae2.png) | ![Consistency Image](assets/consistency2.png) |
+![Original Image](assets/gt3.png) | ![VAE Image](assets/vae3.png) | ![Consistency Image](assets/consistency3.png) |
