@@ -2,6 +2,7 @@ import hashlib
 import math
 import os
 import urllib
+import requests
 import warnings
 
 import torch
@@ -190,7 +191,15 @@ def load_image(uri, size=None, center_crop=False):
     import numpy as np
     from PIL import Image
 
-    image = Image.open(uri)
+    if os.path.isfile(uri):
+        # load image from local
+        image = Image.open(uri)
+    else:
+        # load image by url
+        image = Image.open(requests.get(uri, stream=True).raw)
+    # handle case of grayscale and RGBA images
+    image = image.convert("RGB")
+
     if center_crop:
         image = image.crop(
             (
